@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PallXx Offc - Toko Game & Pembayaran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== VARIABLES & RESET ===== */
+        :root {
+            --neon-cyan: #00fff7;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff00;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff9900;
+            --dark-bg: #0a0a0a;
+            --dark-card: #111111;
+            --light-bg: #f0f0f0;
+            --light-card: #ffffff;
+            --text-glow: 0 0 10px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* ===== TOKO GAME STYLES ===== */
+        [data-theme="light"] {
+            --bg-color: var(--light-bg);
+            --card-bg: var(--light-card);
+            --text-color: #333333;
+            --border-color: #dddddd;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: var(--dark-bg);
+            --card-bg: var(--dark-card);
+            --text-color: var(--neon-cyan);
+            --border-color: var(--neon-cyan);
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 95%, rgba(0, 255, 247, 0.03) 100%),
+                linear-gradient(0deg, transparent 95%, rgba(0, 255, 247, 0.03) 100%);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding: 15px 30px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 255, 247, 0.1);
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            letter-spacing: 0.1em;
+            text-shadow: var(--text-glow) var(--neon-cyan);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-toggle, .cart-btn {
+            background: none;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .cart-btn {
+            border-color: var(--neon-magenta);
+            color: var(--neon-magenta);
+            position: relative;
+        }
+
+        .theme-toggle:hover {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+        }
+
+        .cart-btn:hover {
+            background: var(--neon-magenta);
+            color: var(--dark-bg);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px; right: -8px;
+            background: var(--neon-green);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 20px; height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--dark-bg);
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* Main Content */
+        #content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Home Page */
+        .home-content {
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .cyber-title {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 247, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            text-shadow: var(--text-glow) var(--neon-cyan);
+        }
+
+        .btn-simple {
+            padding: 15px 45px;
+            font-size: 1.3rem;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: transparent;
+            display: inline-block;
+        }
+
+        .btn-simple:hover {
+            color: var(--dark-bg);
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* Product Page */
+        .product-content {
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeIn 0.8s ease;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--neon-magenta);
+            text-shadow: var(--text-glow) var(--neon-magenta);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .btn-main {
+            padding: 18px 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 30px;
+            border: 3px solid var(--neon-magenta);
+            background: transparent;
+            color: var(--neon-magenta);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-main:hover, .btn-main.active-cheat {
+            background: var(--neon-magenta);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px var(--neon-magenta);
+        }
+
+        .btn-main.active-akun {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px var(--neon-cyan);
+            border-color: var(--neon-cyan);
+        }
+
+        /* Product List */
+        .product-list {
+            max-width: 1000px;
+            margin: 40px auto;
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-list.active {
+            display: grid;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 247, 0.3);
+        }
+
+        .card-cheat { border-color: var(--neon-magenta); }
+        .card-akun { border-color: var(--neon-cyan); }
+
+        .stock-badge {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: var(--neon-green);
+            color: var(--dark-bg);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .stock-out { background: #ff4444; }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .card-cheat img { filter: drop-shadow(0 0 8px var(--neon-magenta)); }
+        .card-akun img { filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card-cheat .card-title { color: var(--neon-magenta); }
+        .card-akun .card-title { color: var(--neon-cyan); }
+
+        .card-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--neon-green);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .buy-btn, .quick-view-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid;
+            background: transparent;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .card-cheat .buy-btn, .card-cheat .quick-view-btn {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+        }
+
+        .card-akun .buy-btn, .card-akun .quick-view-btn {
+            color: var(--neon-magenta);
+            border-color: var(--neon-magenta);
+        }
+
+        .buy-btn:hover, .quick-view-btn:hover {
+            color: var(--dark-bg);
+        }
+
+        .card-cheat .buy-btn:hover, .card-cheat .quick-view-btn:hover {
+            background: var(--neon-cyan);
+        }
+
+        .card-akun .buy-btn:hover, .card-akun .quick-view-btn:hover {
+            background: var(--neon-magenta);
+        }
+
+        /* ===== PEMBAYARAN QRIS STYLES ===== */
+        .payment-container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .payment-header {
+            background: #4a5568;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .payment-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .payment-header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .payment-content {
+            padding: 25px;
+        }
+
+        .merchant-info {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .merchant-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .order-id {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .qris-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .qris-title {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .qris-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 15px;
+            background: #f7fafc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qris-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 49%, #2d3748 49%, #2d3748 51%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, #2d3748 49%, #2d3748 51%, transparent 51%);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+
+        .qris-corners {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .qris-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #2d3748;
+        }
+
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .qris-logo {
+            width: 40px;
+            height: 40px;
+            background: #2d3748;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .instruction {
+            font-size: 13px;
+            color: #718096;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .product-details {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 5px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .payment-footer {
+            text-align: center;
+            padding: 15px;
+            background: #f7fafc;
+            font-size: 12px;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e2e8f0;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        .countdown {
+            text-align: center;
+            font-size: 14px;
+            color: #e53e3e;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .cyber-footer {
+            background: var(--card-bg);
+            border-top: 2px solid var(--border-color);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 60px;
+            transition: var(--transition);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cyber-title { font-size: 3rem; }
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .header-controls { gap: 10px; }
+            nav { gap: 10px; }
+            .button-group { flex-direction: column; gap: 20px; }
+            .btn-main { padding: 15px 40px; font-size: 1.3rem; }
+            .product-list { grid-template-columns: 1fr; }
+            .qris-code { width: 180px; height: 180px; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="cyber-grid"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Memproses...</div>
+    </div>
+
+    <header>
+        <div class="logo">PallXx Offc</div>
+        <div class="header-controls">
+            <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+            <button class="cart-btn" id="cartButton">
+                🛒 Keranjang
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+        <nav>
+            <a href="#" data-page="beranda">Beranda</a>
+            <a href="#" data-page="produk">Produk</a>
+            <a href="#" data-page="tentang">Tentang</a>
+            <a href="#" data-page="customerservice">Customer Service</a>
+        </nav>
+    </header>
+
+    <div id="content">
+        <!-- Content akan dimuat di sini secara dinamis -->
+    </div>
+
+    <footer class="cyber-footer">
+        <p>&copy; 2024 PallXx Offc. Jual Cheat & Akun Game Premium.</p>
+        <p>WhatsApp: +62 897-2237-1116</p>
+    </footer>
+
+    <script>
+        // Data produk
+        const products = {
+            cheat: [
+                {
+                    id: 1,
+                    name: "Cheat Aimbot GTA V",
+                    price: "Rp 500.000",
+                    image: "https://via.placeholder.com/300x180/ff00ff/000000?text=GTA+V+AIMBOT",
+                    desc: "Aimbot presisi untuk GTA V Online dengan detection rate rendah",
+                    features: ["Precision Aim", "Undetectable", "Auto Update", "24/7 Support"],
+                    stock: 15,
+                    game: "GTA V"
+                },
+                {
+                    id: 2,
+                    name: "Cheat Wallhack PUBG",
+                    price: "Rp 400.000",
+                    image: "https://via.placeholder.com/300x180/ff00ff/000000?text=PUBG+WALLHACK",
+                    desc: "Lihat melalui tembok di PUBG dengan ESP features lengkap",
+                    features: ["Wallhack", "ESP Radar", "Item ESP", "Player ESP"],
+                    stock: 8,
+                    game: "PUBG"
+                },
+                {
+                    id: 3,
+                    name: "Cheat Speedhack Free Fire",
+                    price: "Rp 450.000",
+                    image: "https://via.placeholder.com/300x180/ff00ff/000000?text=FF+SPEEDHACK",
+                    desc: "Boost kecepatan movement dan shooting di Free Fire",
+                    features: ["Speed Boost", "No Cooldown", "Rapid Fire", "Anti-Ban"],
+                    stock: 0,
+                    game: "Free Fire"
+                },
+                {
+                    id: 4,
+                    name: "Cheat Unlimited Health",
+                    price: "Rp 600.000",
+                    image: "https://via.placeholder.com/300x180/ff00ff/000000?text=UNLIMITED+HEALTH",
+                    desc: "Mode tidak bisa mati untuk berbagai game battle royale",
+                    features: ["God Mode", "Auto Heal", "Damage Boost", "One Hit Kill"],
+                    stock: 12,
+                    game: "Multi Game"
+                }
+            ],
+            akun: [
+                {
+                    id: 6,
+                    name: "Akun PUBG Level 50",
+                    price: "Rp 1.500.000",
+                    image: "https://via.placeholder.com/300x180/00fff7/000000?text=PUBG+LEVEL+50",
+                    desc: "Akun PUBG level tinggi dengan item langka dan skin exclusive",
+                    features: ["Level 50", "Rare Skins", "Max Rank", "1000+ UC"],
+                    stock: 5,
+                    game: "PUBG"
+                },
+                {
+                    id: 7,
+                    name: "Akun Free Fire Diamond",
+                    price: "Rp 1.200.000",
+                    image: "https://via.placeholder.com/300x180/00fff7/000000?text=FF+DIAMOND",
+                    desc: "Rank Diamond dengan skin elite dan character langka",
+                    features: ["Diamond Rank", "Elite Pass", "Premium Skins", "All Characters"],
+                    stock: 3,
+                    game: "Free Fire"
+                },
+                {
+                    id: 8,
+                    name: "Akun Mobile Legends Epic",
+                    price: "Rp 1.000.000",
+                    image: "https://via.placeholder.com/300x180/00fff7/000000?text=ML+EPIC",
+                    desc: "Akun ML rank Epic dengan semua hero dan skin kolektor",
+                    features: ["Epic Rank", "All Heroes", "Special Skins", "Max Emblem"],
+                    stock: 7,
+                    game: "Mobile Legends"
+                },
+                {
+                    id: 9,
+                    name: "Akun Valorant Level 30",
+                    price: "Rp 1.800.000",
+                    image: "https://via.placeholder.com/300x180/00fff7/000000?text=VALORANT+30",
+                    desc: "Level 30 dengan skin premium dan battle pass completed",
+                    features: ["Level 30", "Rare Skins", "Competitive Ready", "All Agents"],
+                    stock: 2,
+                    game: "Valorant"
+                }
+            ]
+        };
+
+        // Global state
+        let cart = [];
+        let currentTheme = 'dark';
+        let selectedProduct = null;
+        let orderCounter = Math.floor(Math.random() * 1000) + 1000;
+
+        // Generate Order ID unik
+        function generateOrderId() {
+            orderCounter++;
+            const timestamp = new Date().getTime().toString().slice(-6);
+            return `PLLX${orderCounter}${timestamp}`;
+        }
+
+        // Sistem navigasi
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.getElementById('content');
+            const navLinks = document.querySelectorAll('nav a');
+            const themeToggle = document.getElementById('themeToggle');
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            function loadPage(page) {
+                history.pushState(null, null, `?page=${page}`);
+                document.title = `PallXx Offc - ${getPageTitle(page)}`;
+                
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('data-page') === page);
+                });
+                
+                content.innerHTML = getPageContent(page);
+                
+                if (page === 'produk') {
+                    initProductPage();
+                }
+            }
+
+            function getPageTitle(page) {
+                const titles = {
+                    'beranda': 'Jual Cheat & Akun Game',
+                    'produk': 'Produk Cheat & Akun',
+                    'tentang': 'Tentang Kami',
+                    'customerservice': 'Customer Service'
+                };
+                return titles[page] || 'Jual Cheat & Akun Game';
+            }
+
+            function getPageContent(page) {
+                const contents = {
+                    'beranda': `
+                        <div class="home-content">
+                            <h1 class="cyber-title">PallXx Offc</h1>
+                            <div class="tagline">JUAL CHEAT & AKUN GAME PREMIUM • AMAN • TERPERCAYA</div>
+                            <button class="btn-simple" id="lihatProdukBtn">LIHAT PRODUK</button>
+                        </div>
+                    `,
+                    'produk': `
+                        <div class="product-content">
+                            <h2 class="product-title">MAU BELI APA NIHHH...</h2>
+                            
+                            <div class="button-group">
+                                <button id="btn-cheat" class="btn-main">CHEAT GAME</button>
+                                <button id="btn-akun" class="btn-main">AKUN GAME</button>
+                            </div>
+                            <div id="cheat-list" class="product-list"></div>
+                            <div id="akun-list" class="product-list"></div>
+                        </div>
+                    `,
+                    'tentang': `
+                        <div style="max-width: 800px; text-align: center;">
+                            <h2 style="color: var(--neon-magenta); margin-bottom: 30px;">TENTANG PALLXX OFFC</h2>
+                            <p style="margin-bottom: 20px; font-size: 1.2rem;">
+                                PallXx Offc adalah tempat terpercaya untuk membeli cheat game dan akun game premium.
+                                Dengan pengalaman bertahun-tahun di industri gaming, kami memahami kebutuhan para gamer.
+                            </p>
+                            <div style="color: var(--neon-green); font-weight: bold;">
+                                ✅ 100% Aman & Terpercaya<br>
+                                ✅ Update Rutin<br>
+                                ✅ Support 24/7<br>
+                                ✅ Garansi Produk
+                            </div>
+                        </div>
+                    `,
+                    'customerservice': `
+                        <div style="max-width: 600px; text-align: center;">
+                            <h2 style="color: var(--neon-magenta); margin-bottom: 30px;">CUSTOMER SERVICE</h2>
+                            <p style="margin-bottom: 30px; font-size: 1.2rem;">
+                                Untuk pertanyaan atau bantuan, chat kami via WhatsApp:
+                            </p>
+                            <a href="https://wa.me/628972237116" target="_blank" 
+                               style="display: inline-block; background: #25d366; color: white; font-weight: 700; 
+                                      padding: 15px 30px; border-radius: 50px; text-decoration: none; 
+                                      font-size: 1.3rem; box-shadow: 0 0 15px #25d366;">
+                                CHAT VIA WHATSAPP
+                            </a>
+                            <p style="margin-top: 30px; font-size: 1rem;">
+                                Respon cepat! Jam operasional: 24/7
+                            </p>
+                        </div>
+                    `
+                };
+                
+                return contents[page] || contents['beranda'];
+            }
+
+            function initProductPage() {
+                const btnCheat = document.getElementById('btn-cheat');
+                const btnAkun = document.getElementById('btn-akun');
+                const cheatList = document.getElementById('cheat-list');
+                const akunList = document.getElementById('akun-list');
+                
+                // Render produk cheat
+                cheatList.innerHTML = products.cheat.map(product => `
+                    <div class="card card-cheat">
+                        ${product.stock > 0 ? 
+                            `<div class="stock-badge">Stock: ${product.stock}</div>` : 
+                            `<div class="stock-badge stock-out">HABIS</div>`
+                        }
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="card-title">${product.name}</div>
+                        <div class="card-price">${product.price}</div>
+                        <p style="margin-bottom: 15px; font-size: 0.9rem;">${product.desc}</p>
+                        <div class="card-actions">
+                            <button class="buy-btn" onclick="selectProduct(${product.id}, 'cheat')"
+                                    ${product.stock === 0 ? 'disabled style="opacity: 0.5;"' : ''}>
+                                ${product.stock > 0 ? 'BELI SEKARANG' : 'HABIS'}
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Render produk akun
+                akunList.innerHTML = products.akun.map(product => `
+                    <div class="card card-akun">
+                        ${product.stock > 0 ? 
+                            `<div class="stock-badge">Stock: ${product.stock}</div>` : 
+                            `<div class="stock-badge stock-out">HABIS</div>`
+                        }
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="card-title">${product.name}</div>
+                        <div class="card-price">${product.price}</div>
+                        <p style="margin-bottom: 15px; font-size: 0.9rem;">${product.desc}</p>
+                        <div class="card-actions">
+                            <button class="buy-btn" onclick="selectProduct(${product.id}, 'akun')"
+                                    ${product.stock === 0 ? 'disabled style="opacity: 0.5;"' : ''}>
+                                ${product.stock > 0 ? 'BELI SEKARANG' : 'HABIS'}
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                function resetButtonStates() {
+                    btnCheat.classList.remove('active-cheat');
+                    btnAkun.classList.remove('active-akun');
+                }
+                
+                btnCheat.addEventListener('click', () => {
+                    resetButtonStates();
+                    btnCheat.classList.add('active-cheat');
+                    cheatList.style.display = 'grid';
+                    akunList.style.display = 'none';
+                    cheatList.classList.add('active');
+                    akunList.classList.remove('active');
+                });
+                
+                btnAkun.addEventListener('click', () => {
+                    resetButtonStates();
+                    btnAkun.classList.add('active-akun');
+                    cheatList.style.display = 'none';
+                    akunList.style.display = 'grid';
+                    cheatList.classList.remove('active');
+                    akunList.classList.add('active');
+                });
+                
+                // Default show cheat products
+                btnCheat.click();
+            }
+            
+            // Navigation event listeners
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadPage(this.getAttribute('data-page'));
+                });
+            });
+
+            // Event listener untuk tombol "LIHAT PRODUK"
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.id === 'lihatProdukBtn') {
+                    e.preventDefault();
+                    loadPage('produk');
+                }
+            });
+            
+            // Initialize
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialPage = urlParams.get('page') || 'beranda';
+            loadPage(initialPage);
+        });
+
+        // Fungsi global
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeToggle').textContent = currentTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        function selectProduct(productId, type) {
+            selectedProduct = products[type].find(p => p.id === productId);
+            showPaymentPage();
+        }
+
+        function showPaymentPage() {
+            const orderId = generateOrderId();
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="payment-container">
+                    <div class="payment-header">
+                        <h1>PallXx Offc</h1>
+                        <p>PAYMENT GATEWAY</p>
+                    </div>
+                    
+                    <div class="payment-content">
+                        <div class="merchant-info">
+                            <div class="merchant-name">PallXx Offc</div>
+                            <div class="order-id">Order ID: ${orderId}</div>
+                        </div>
+                        
+                        <div class="qris-container">
+                            <div class="qris-title">Scan QRIS dengan aplikasi pembayaran Anda</div>
+                            <div class="qris-code">
+                                <div class="qris-pattern"></div>
+                                <div class="qris-corners">
+                                    <div class="qris-corner corner-tl"></div>
+                                    <div class="qris-corner corner-tr"></div>
+                                    <div class="qris-corner corner-bl"></div>
+                                    <div class="qris-corner corner-br"></div>
+                                </div>
+                                <div class="qris-logo">QRIS</div>
+                            </div>
+                            <div class="instruction">
+                                Silahkan scan QR code di atas menggunakan aplikasi pembayaran digital Anda (GoPay, OVO, Dana, dll)
+                            </div>
+                        </div>
+                        
+                        <div class="product-details">
+                            <div class="product-name">${selectedProduct.name}</div>
+                            <div class="product-name" style="color: #48bb78; font-size: 1.5rem;">${selectedProduct.price}</div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" id="email" class="form-input" placeholder="Emailkamu@mail.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="discord">Username Discord</label>
+                                <input type="text" id="discord" class="form-input" placeholder="contoh: rychardiff1234">
+                                <div class="form-hint">Pastikan username Discord Anda benar untuk pengiriman produk</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="whatsapp">Nomor WhatsApp</label>
+                                <input type="tel" id="whatsapp" class="form-input" placeholder="contoh: 081234567890">
+                                <div class="form-hint">Nomor WhatsApp aktif untuk konfirmasi pembayaran</div>
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="paymentLoading">
+                            <div class="loading-spinner"></div>
+                            <div>Memproses pembayaran...</div>
+                        </div>
+                        
+                        <div class="countdown" id="countdown">Batas waktu pembayaran: 15:00</div>
+                        
+                        <div class="actions">
+                            <button class="btn btn-secondary" id="cancelPaymentBtn">Kembali</button>
+                            <button class="btn btn-primary" id="confirmPaymentBtn">Konfirmasi Pembayaran</button>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-footer">
+                        &copy; 2025 PallXx Offc. Pembayaran aman dan terenkripsi.
+                    </div>
+                </div>
+            `;
+
+            // Setup payment page functionality
+            setupPaymentPage(orderId);
+        }
+
+        function setupPaymentPage(orderId) {
+            const confirmBtn = document.getElementById('confirmPaymentBtn');
+            const cancelBtn = document.getElementById('cancelPaymentBtn');
+            const loading = document.getElementById('paymentLoading');
+            const countdown = document.getElementById('countdown');
+            
+            // Set countdown timer
+            let timeLeft = 15 * 60;
+            const countdownInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdown.textContent = "Batas waktu pembayaran telah habis";
+                    countdown.style.color = "#e53e3e";
+                    confirmBtn.disabled = true;
+                    return;
+                }
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdown.textContent = `Batas waktu pembayaran: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                timeLeft--;
+            }, 1000);
+            
+            // Handle payment confirmation
+            confirmBtn.addEventListener('click', function() {
+                const email = document.getElementById('email').value;
+                const discord = document.getElementById('discord').value;
+                const whatsapp = document.getElementById('whatsapp').value;
+                
+                if (!email || !discord || !whatsapp) {
+                    alert('Harap lengkapi semua informasi yang diperlukan');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    alert('Format email tidak valid');
+                    return;
+                }
+                
+                loading.style.display = 'block';
+                confirmBtn.disabled = true;
+                cancelBtn.disabled = true;
+                
+                // Simulate payment processing
+                setTimeout(function() {
+                    loading.style.display = 'none';
+                    alert(`✅ PEMBAYARAN BERHASIL!\n\n📦 Order ID: ${orderId}\n🎮 Produk: ${selectedProduct.name}\n💬 Discord: ${discord}\n\nProduk akan dikirim dalam 5-10 menit!`);
+                    // Kembali ke halaman produk
+                    window.history.back();
+                }, 3000);
+            });
+            
+            // Handle cancel
+            cancelBtn.addEventListener('click', function() {
+                window.history.back();
+            });
+            
+            // Auto-fill example data
+            document.getElementById('email').value = 'customer@example.com';
+            document.getElementById('discord').value = 'rychardiff1234';
+            document.getElementById('whatsapp').value = '081234567890';
+
+            // Email validation function
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            currentTheme = savedTheme;
+            document.body.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeToggle').textContent = currentTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+        }
+    </script>
+</body>
+</html>
