@@ -844,6 +844,39 @@
             flex-shrink: 0;
         }
 
+        /* QRIS Display Area */
+        .qris-display {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0, 255, 247, 0.1);
+            border-radius: 12px;
+            border: 2px dashed var(--neon-cyan);
+        }
+
+        .qris-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 15px;
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 10px;
+            background: white;
+        }
+
+        .qris-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qris-instruction {
+            font-size: 14px;
+            color: var(--text-color);
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
         .account-display {
             text-align: center;
             margin: 15px 0;
@@ -865,18 +898,6 @@
         .account-name {
             color: var(--text-color);
             font-size: 0.9rem;
-        }
-
-        .account-number {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-color);
-            text-align: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: var(--card-bg);
-            border-radius: 8px;
-            border: 2px dashed var(--border-color);
         }
 
         .instruction {
@@ -1144,6 +1165,60 @@
             font-weight: 500;
         }
 
+        /* Product Delivery Section */
+        .delivery-section {
+            background: rgba(0, 255, 247, 0.1);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .delivery-title {
+            color: var(--neon-cyan);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .delivery-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .delivery-details {
+            font-family: 'Courier New', monospace;
+            background: var(--dark-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .copy-btn {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: var(--neon-magenta);
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         .cyber-footer {
             background: var(--card-bg);
@@ -1193,6 +1268,7 @@
             .price-options { grid-template-columns: repeat(2, 1fr); }
             .step { flex-direction: column; text-align: center; }
             .step-number { align-self: center; }
+            .qris-image { width: 150px; height: 150px; }
         }
     </style>
 </head>
@@ -1244,12 +1320,13 @@
     </div>
 
     <footer class="cyber-footer">
-        <p>&copy; 2024 PallXx Offc. Jual Cheat & Akun Game Premium.</p>
-        <p>WhatsApp: +62 897-2237-1116</p>
+        <p>Jual Cheat & Akun Game Premium.</p>
+        <p>&copy; 2025 PallXx Offc.</p>
+        <p>WhatsApp: 628972237116</p>
     </footer>
 
     <script>
-        // Data produk dengan sistem harga berlangganan
+        // Data produk dengan sistem harga berlangganan - DIPERBAIKI
         const products = {
             cheat: [
                 {
@@ -1284,68 +1361,37 @@
                 },
                 {
                     id: 3,
-                    name: "(ANDROID) DripClient",
-                    image: "https://files.catbox.moe/fp700i.jpg",
-                    desc: "Cheat Free Fire Android (NON ROOT) dan (ROOT)",
-                    features: ["Aim Kill", "Aim Kill Cover", "Speed Hack", "Teleport 8m", "Up Player", "Ghost Function"],
+                    name: "(PC) Valorant Hack",
+                    image: "https://via.placeholder.com/300x180/ff00ff/ffffff?text=VALORANT+HACK",
+                    desc: "Cheat Valorant PC dengan fitur lengkap",
+                    features: ["Aim Assist", "Wallhack", "No Recoil", "Trigger Bot", "Radar Hack", "Skin Changer"],
                     prices: [
-                        { duration: "1 HARI", price: "Rp 30.000" },
-                        { duration: "7 HARI", price: "Rp 100.000" },
-                        { duration: "15 HARI", price: "Rp 200.000" },
-                        { duration: "30 HARI", price: "Rp 300.000" }
+                        { duration: "1 MINGGU", price: "Rp 200.000" },
+                        { duration: "1 BULAN", price: "Rp 500.000" },
+                        { duration: "3 BULAN", price: "Rp 1.200.000" }
                     ],
-                    stock: 12,
-                    game: "Free Fire"
+                    stock: 10,
+                    game: "Valorant"
                 },
                 {
                     id: 4,
-                    name: "(ANDROID) HgCheats",
-                    image: "https://files.catbox.moe/anra9m.png",
-                    desc: "Cheat Free Fire Android (NON ROOT) dan (ROOT)",
-                    features: ["Aim Silent", "Aim Kill", "Esp Fire", "Speed Hack", "Up Player"],
+                    name: "(MOBILE) PUBG Mobile",
+                    image: "https://via.placeholder.com/300x180/00ff00/000000?text=PUBG+MOBILE",
+                    desc: "Cheat PUBG Mobile Android & iOS",
+                    features: ["Aimbot", "ESP", "No Grass", "Speed Hack", "Magic Bullet", "Anti-Ban"],
                     prices: [
-                        { duration: "10 HARI", price: "Rp 100.000" },
-                        { duration: "20 HARI", price: "Rp 200.000" },
-                        { duration: "30 HARI", price: "Rp 300.000" },
-                        { duration: "90 HARI", price: "Rp 750.000" }
+                        { duration: "3 HARI", price: "Rp 50.000" },
+                        { duration: "1 MINGGU", price: "Rp 100.000" },
+                        { duration: "1 BULAN", price: "Rp 300.000" }
                     ],
                     stock: 12,
-                    game: "Free Fire"
-                },
-                {
-                    id: 5,
-                    name: "(ANDROID) BrMods {ORI}",
-                    image: "https://files.catbox.moe/36duuy.jpg",
-                    desc: "Cheat Free Fire Android (ROOT)",
-                    features: ["Silent Aim", "Head(RISK)", "FOV", "Ghost Hack", "Tp Wall", "Up Player", "Esp Fire"],
-                    prices: [
-                        { duration: "1 HARI", price: "Rp 30.000" },
-                        { duration: "7 HARI", price: "Rp 100.000" },
-                        { duration: "15 HARI", price: "Rp 200.000" },
-                        { duration: "30 HARI", price: "Rp 300.000" }
-                    ],
-                    stock: 12,
-                    game: "Free Fire"
-                },
-                {
-                    id: 6,
-                    name: "(ANDROID) BrMods {CRACK}",
-                    image: "https://files.catbox.moe/36duuy.jpg",
-                    desc: "Cheat Free Fire Android (ROOT)",
-                    features: ["Silent Aim", "Head(RISK)", "FOV", "Ghost Hack", "Tp Wall", "Up Player", "Aim Magnet", "Esp Fire"],
-                    prices: [
-                        { duration: "10 HARI", price: "Rp 70.000" },
-                        { duration: "30 HARI", price: "Rp 250.000" },
-                        { duration: "90 HARI", price: "Rp 500.000" }
-                    ],
-                    stock: 12,
-                    game: "Free Fire"
+                    game: "PUBG Mobile"
                 }
             ],
             akun: [
                 {
                     id: 7,
-                    name: "Akun Free Fire",
+                    name: "Akun Free Fire Premium",
                     image: "https://via.placeholder.com/300x180/00fff7/000000?text=FREE+FIRE+ACCOUNT",
                     desc: "Akun Free Fire level tinggi dengan item langka dan skin exclusive",
                     features: ["Level 70", "Rare Skins", "Max Rank", "5000+ Diamond", "Royal Pass", "Mythic Outfits", "All Characters Unlocked"],
@@ -1357,20 +1403,32 @@
                 },
                 {
                     id: 8,
-                    name: "Akun GTA V Modded",
-                    image: "https://via.placeholder.com/300x180/00fff7/000000?text=GTA+V+MODDED",
-                    desc: "Akun GTA V dengan uang max dan semua properti",
-                    features: ["$2 Billion", "All Properties", "Max Level", "All Vehicles", "All Weapons", "Unlocked Everything"],
+                    name: "Akun Valorant Premium",
+                    image: "https://via.placeholder.com/300x180/ff00ff/ffffff?text=VALORANT+ACCOUNT",
+                    desc: "Akun Valorant dengan skin premium dan rank tinggi",
+                    features: ["Radiant Rank", "All Agents Unlocked", "Premium Skins", "1000+ VP", "Battle Pass Completed"],
                     prices: [
                         { duration: "FULL AKUN", price: "Rp 2.000.000" }
                     ],
                     stock: 3,
-                    game: "GTA V"
+                    game: "Valorant"
+                },
+                {
+                    id: 9,
+                    name: "Akun PUBG Mobile VIP",
+                    image: "https://via.placeholder.com/300x180/00ff00/000000?text=PUBG+ACCOUNT",
+                    desc: "Akun PUBG Mobile dengan item legendary dan UC banyak",
+                    features: ["Conqueror Rank", "Legendary Skins", "10.000+ UC", "All Season Pass", "Rare Outfits"],
+                    prices: [
+                        { duration: "FULL AKUN", price: "Rp 1.200.000" }
+                    ],
+                    stock: 4,
+                    game: "PUBG Mobile"
                 }
             ]
         };
 
-        // Data payment methods
+        // Data payment methods dengan QRIS
         const paymentMethods = {
             qris: {
                 name: "QRIS",
@@ -1380,15 +1438,16 @@
                     "Pilih fitur Scan QRIS",
                     "Scan QR code yang ditampilkan",
                     "Konfirmasi pembayaran"
-                ]
+                ],
+                qrCode: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://pallxx-offc.vercel.app"
             },
             dana: {
                 name: "DANA",
-                number: "0831 2171 8942",
+                number: "08972237116",
                 instructions: [
                     "Buka aplikasi DANA",
                     "Pilih 'Kirim' atau 'Bayar'",
-                    "Masukkan nomor: 0831 2171 8942",
+                    "Masukkan nomor: 08972237116",
                     "Masukkan nominal sesuai harga produk",
                     "Tambahkan keterangan: Order ID Anda",
                     "Konfirmasi pembayaran"
@@ -1396,12 +1455,12 @@
             },
             ovo: {
                 name: "OVO",
-                number: "0831 2171 8942", 
+                number: "08972237116", 
                 instructions: [
                     "Buka aplikasi OVO",
                     "Pilih 'Transfer'",
                     "Pilih 'Transfer ke Sesama OVO'",
-                    "Masukkan nomor: 0831 2171 8942",
+                    "Masukkan nomor: 08972237116",
                     "Masukkan nominal sesuai harga produk",
                     "Tambahkan pesan: Order ID Anda",
                     "Konfirmasi pembayaran"
@@ -1409,13 +1468,13 @@
             },
             gopay: {
                 name: "GoPay",
-                number: "0831 2171 8942",
+                number: "08972237116",
                 instructions: [
                     "Buka aplikasi Gojek",
                     "Pilih 'Bayar' atau 'GoPay'",
                     "Pilih 'Transfer'",
                     "Pilih 'Ke Pengguna GoPay'", 
-                    "Masukkan nomor: 0831 2171 8942",
+                    "Masukkan nomor: 08972237116",
                     "Masukkan nominal sesuai harga produk",
                     "Tambahkan catatan: Order ID Anda",
                     "Konfirmasi pembayaran"
@@ -1440,7 +1499,7 @@
             return `PLLX${orderCounter}${timestamp}`;
         }
 
-        // Sistem navigasi - DIPERBAIKI dengan event delegation
+        // Sistem navigasi
         document.addEventListener('DOMContentLoaded', function() {
             const content = document.getElementById('content');
             const navLinks = document.querySelectorAll('nav a');
@@ -1516,7 +1575,7 @@
                     }
                 }
                 
-                // Tombol quick view dan buy di card produk - PERBAIKAN DI SINI
+                // Tombol quick view dan buy di card produk
                 if (e.target && (e.target.classList.contains('quick-view-btn') || e.target.classList.contains('buy-btn'))) {
                     const button = e.target;
                     const card = button.closest('.card');
@@ -1529,6 +1588,13 @@
                         selectProduct(parseInt(productId), type);
                     }
                 }
+
+                // Tombol copy di delivery details
+                if (e.target && e.target.classList.contains('copy-btn')) {
+                    const deliveryDetails = e.target.previousElementSibling;
+                    copyToClipboard(deliveryDetails.textContent);
+                    alert('Detail produk berhasil disalin!');
+                }
             });
             
             // Initialize
@@ -1537,7 +1603,7 @@
             loadPage(initialPage);
         });
 
-        // Fungsi untuk load halaman - DIPERBAIKI
+        // Fungsi untuk load halaman
         function loadPage(page) {
             // Update URL
             history.pushState({ page: page }, null, `?page=${page}`);
@@ -1631,57 +1697,61 @@
             const cheatList = document.getElementById('cheat-list');
             const akunList = document.getElementById('akun-list');
             
-            // Render produk cheat - PERBAIKAN: tambahkan data attributes
-            cheatList.innerHTML = products.cheat.map(product => `
-                <div class="card card-cheat">
-                    ${product.stock > 0 ? 
-                        `<div class="stock-badge">Stock: ${product.stock}</div>` : 
-                        `<div class="stock-badge stock-out">HABIS</div>`
-                    }
-                    <div class="card-image-container">
-                        <img src="${product.image}" alt="${product.name}">
+            // Render produk cheat - DIPERBAIKI
+            if (cheatList) {
+                cheatList.innerHTML = products.cheat.map(product => `
+                    <div class="card card-cheat">
+                        ${product.stock > 0 ? 
+                            `<div class="stock-badge">Stock: ${product.stock}</div>` : 
+                            `<div class="stock-badge stock-out">HABIS</div>`
+                        }
+                        <div class="card-image-container">
+                            <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x180/333333/ffffff?text=NO+IMAGE'">
+                        </div>
+                        <div class="card-title">${product.name}</div>
+                        <div class="card-price">${product.prices[0]?.price || 'HARGA CEK DI "VIEW"'}</div>
+                        <p style="margin-bottom: 15px; font-size: 0.9rem;">${product.desc}</p>
+                        <div class="card-actions">
+                            <button class="quick-view-btn" data-product-id="${product.id}" data-product-type="cheat">
+                                <i class="fas fa-eye"></i> QUICK VIEW
+                            </button>
+                            <button class="buy-btn" data-product-id="${product.id}" data-product-type="cheat"
+                                    ${product.stock === 0 ? 'disabled style="opacity: 0.5;"' : ''}>
+                                ${product.stock > 0 ? 'BELI SEKARANG' : 'HABIS'}
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-title">${product.name}</div>
-                    <div class="card-price">HARGA CEK DI "VIEW"</div>
-                    <p style="margin-bottom: 15px; font-size: 0.9rem;">${product.desc}</p>
-                    <div class="card-actions">
-                        <button class="quick-view-btn" data-product-id="${product.id}" data-product-type="cheat">
-                            <i class="fas fa-eye"></i> QUICK VIEW
-                        </button>
-                        <button class="buy-btn" data-product-id="${product.id}" data-product-type="cheat"
-                                ${product.stock === 0 ? 'disabled style="opacity: 0.5;"' : ''}>
-                            ${product.stock > 0 ? 'BELI SEKARANG' : 'HABIS'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
             
-            // Render produk akun - PERBAIKAN: tambahkan data attributes
-            akunList.innerHTML = products.akun.map(product => `
-                <div class="card card-akun">
-                    ${product.stock > 0 ? 
-                        `<div class="stock-badge">Stock: ${product.stock}</div>` : 
-                        `<div class="stock-badge stock-out">HABIS</div>`
-                    }
-                    <div class="card-image-container">
-                        <img src="${product.image}" alt="${product.name}">
+            // Render produk akun - DIPERBAIKI
+            if (akunList) {
+                akunList.innerHTML = products.akun.map(product => `
+                    <div class="card card-akun">
+                        ${product.stock > 0 ? 
+                            `<div class="stock-badge">Stock: ${product.stock}</div>` : 
+                            `<div class="stock-badge stock-out">HABIS</div>`
+                        }
+                        <div class="card-image-container">
+                            <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x180/333333/ffffff?text=NO+IMAGE'">
+                        </div>
+                        <div class="card-title">${product.name}</div>
+                        <div class="card-price">${product.prices[0]?.price || 'HARGA CEK DI "VIEW"'}</div>
+                        <p style="margin-bottom: 15px; font-size: 0.9rem;">${product.desc}</p>
+                        <div class="card-actions">
+                            <button class="quick-view-btn" data-product-id="${product.id}" data-product-type="akun">
+                                <i class="fas fa-eye"></i> QUICK VIEW
+                            </button>
+                            <button class="buy-btn" data-product-id="${product.id}" data-product-type="akun"
+                                    ${product.stock === 0 ? 'disabled style="opacity: 0.5;"' : ''}>
+                                ${product.stock > 0 ? 'BELI SEKARANG' : 'HABIS'}
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-title">${product.name}</div>
-                    <div class="card-price">HARGA CEK DI "VIEW"</div>
-                    <p style="margin-bottom: 15px; font-size: 0.9rem;">${product.desc}</p>
-                    <div class="card-actions">
-                        <button class="quick-view-btn" data-product-id="${product.id}" data-product-type="akun">
-                            <i class="fas fa-eye"></i> QUICK VIEW
-                        </button>
-                        <button class="buy-btn" data-product-id="${product.id}" data-product-type="akun"
-                                ${product.stock === 0 ? 'disabled style="opacity: 0.5;"' : ''}>
-                            ${product.stock > 0 ? 'BELI SEKARANG' : 'HABIS'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
             
-            // Default show cheat products
+            // Default show cheat products - DIPERBAIKI
             if (btnCheat && btnAkun && cheatList && akunList) {
                 btnCheat.classList.add('active-cheat');
                 btnAkun.classList.remove('active-akun');
@@ -1832,12 +1902,12 @@
                             <div class="info-box">
                                 <h4 style="color: var(--neon-green);">💡 INFORMASI PENTING</h4>
                                 <ul>
-                                    <li><strong>Nomor Rekening Tetap:</strong> 0831 2171 8942 (untuk semua metode transfer)</li>
+                                    <li><strong>Nomor Rekening Tetap:</strong> 08972237116 (untuk semua metode transfer)</li>
                                     <li><strong>Tambahkan Keterangan:</strong> Selalu sertakan Order ID Anda saat transfer</li>
                                     <li><strong>Batas Waktu:</strong> 15 menit untuk menyelesaikan pembayaran</li>
                                     <li><strong>Konfirmasi Manual:</strong> Admin akan memverifikasi pembayaran dalam 1-5 menit</li>
                                     <li><strong>Garansi:</strong> Produk dijamin bekerja atau uang kembali</li>
-                                    <li><strong>Support 24/7:</strong> WhatsApp: +62 897-2237-1116</li>
+                                    <li><strong>Support 24/7:</strong> WhatsApp: 628972237116</li>
                                 </ul>
                             </div>
                         </div>
@@ -1850,6 +1920,15 @@
                                     <div class="method-title">QRIS</div>
                                 </div>
                                 <div class="method-details">
+                                    <div class="qris-display">
+                                        <div class="qris-image">
+                                            <img src="${paymentMethods.qris.qrCode}" alt="QR Code Pembayaran">
+                                        </div>
+                                        <div class="account-number">SCAN QR CODE DI ATAS</div>
+                                        <div class="qris-instruction">
+                                            Gunakan aplikasi e-wallet atau mobile banking untuk scan QR code di atas
+                                        </div>
+                                    </div>
                                     <div class="payment-guide">
                                         <div class="guide-step">
                                             <span class="guide-number">1</span>
@@ -1861,16 +1940,12 @@
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">3</span>
-                                            <span>Scan QR code yang akan muncul</span>
+                                            <span>Scan QR code di atas</span>
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">4</span>
                                             <span>Konfirmasi pembayaran</span>
                                         </div>
-                                    </div>
-                                    <div class="account-display">
-                                        <div class="account-number">SCAN QR CODE</div>
-                                        <div class="account-name">Tampil setelah konfirmasi</div>
                                     </div>
                                 </div>
                             </div>
@@ -1883,7 +1958,7 @@
                                 </div>
                                 <div class="method-details">
                                     <div class="account-display">
-                                        <div class="account-number">0831 2171 8942</div>
+                                        <div class="account-number">08972237116</div>
                                         <div class="account-name">a.n. PallXx Offc</div>
                                     </div>
                                     <div class="payment-guide">
@@ -1897,7 +1972,7 @@
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">3</span>
-                                            <span>Masukkan nomor: <strong>0831 2171 8942</strong></span>
+                                            <span>Masukkan nomor: <strong>08972237116</strong></span>
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">4</span>
@@ -1923,7 +1998,7 @@
                                 </div>
                                 <div class="method-details">
                                     <div class="account-display">
-                                        <div class="account-number">0831 2171 8942</div>
+                                        <div class="account-number">08972237116</div>
                                         <div class="account-name">a.n. PallXx Offc</div>
                                     </div>
                                     <div class="payment-guide">
@@ -1941,7 +2016,7 @@
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">4</span>
-                                            <span>Masukkan nomor: <strong>0831 2171 8942</strong></span>
+                                            <span>Masukkan nomor: <strong>08972237116</strong></span>
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">5</span>
@@ -1967,7 +2042,7 @@
                                 </div>
                                 <div class="method-details">
                                     <div class="account-display">
-                                        <div class="account-number">0831 2171 8942</div>
+                                        <div class="account-number">08972237116</div>
                                         <div class="account-name">a.n. PallXx Offc</div>
                                     </div>
                                     <div class="payment-guide">
@@ -1985,7 +2060,7 @@
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">4</span>
-                                            <span>Masukkan nomor: <strong>0831 2171 8942</strong></span>
+                                            <span>Masukkan nomor: <strong>08972237116</strong></span>
                                         </div>
                                         <div class="guide-step">
                                             <span class="guide-number">5</span>
@@ -2086,13 +2161,6 @@
                 const isPaymentSelected = selectedPaymentMethod !== null;
                 const isWhatsappValid = whatsappInput.value.trim().length >= 10;
                 
-                console.log('Form Validation:', {
-                    price: isPriceSelected,
-                    payment: isPaymentSelected,
-                    whatsapp: isWhatsappValid,
-                    whatsappValue: whatsappInput.value
-                });
-                
                 if (isPriceSelected && isPaymentSelected && isWhatsappValid) {
                     confirmBtn.disabled = false;
                     confirmBtn.style.opacity = "1";
@@ -2105,7 +2173,6 @@
             // Price selection
             priceOptions.forEach(option => {
                 option.addEventListener('click', function() {
-                    console.log('Price option clicked');
                     // Remove selected class from all options
                     priceOptions.forEach(opt => opt.classList.remove('selected'));
                     // Add selected class to clicked option
@@ -2131,7 +2198,6 @@
             
             paymentMethods.forEach(method => {
                 method.addEventListener('click', function() {
-                    console.log('Payment method clicked');
                     // Remove active class from all methods
                     paymentMethods.forEach(m => m.classList.remove('active'));
                     // Add active class to selected method
@@ -2145,7 +2211,6 @@
             
             // WhatsApp input validation
             whatsappInput.addEventListener('input', function() {
-                console.log('WhatsApp input:', this.value);
                 checkFormCompletion();
             });
             
@@ -2179,7 +2244,6 @@
             
             // Handle payment confirmation
             confirmBtn.addEventListener('click', function() {
-                console.log('Confirm button clicked');
                 const whatsapp = whatsappInput.value.trim();
                 
                 // Final validation
@@ -2219,8 +2283,6 @@
                     timestamp: new Date().toISOString(),
                     status: 'pending'
                 };
-                
-                console.log('Order data:', orderData);
                 
                 // Simpan ke localStorage (pendingOrders)
                 const pendingOrders = JSON.parse(localStorage.getItem('pendingOrders')) || {};
@@ -2319,14 +2381,23 @@
         }
 
         function checkOrderStatus(orderId) {
-            const completedOrders = JSON.parse(localStorage.getItem('completedOrders')) || {};
-            const order = completedOrders[orderId];
+            // PERBAIKAN: Cek dari kedua sumber (pendingOrders dan completedOrders)
+            const pendingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '{}');
+            const completedOrders = JSON.parse(localStorage.getItem('completedOrders') || '{}');
+            
+            // Cek di completedOrders terlebih dahulu
+            let order = completedOrders[orderId];
+            
+            // Jika tidak ada di completedOrders, cek di pendingOrders
+            if (!order) {
+                order = pendingOrders[orderId];
+            }
             
             if (order) {
                 if (order.status === 'completed') {
-                    // Pembayaran sudah dikonfirmasi admin
+                    // Pembayaran sudah dikonfirmasi admin, tapi belum dikirim
                     clearInterval(orderCheckInterval);
-                    showPaymentSuccess(orderId, order);
+                    showWaitingForDelivery(orderId, order);
                 } else if (order.status === 'delivered') {
                     // Produk sudah dikasih admin
                     clearInterval(orderCheckInterval);
@@ -2335,12 +2406,7 @@
             }
         }
 
-        function checkOrderStatusManually(orderId) {
-            checkOrderStatus(orderId);
-            alert('Status dicek! Jika sudah dikonfirmasi admin, halaman akan otomatis berubah.');
-        }
-
-        function showPaymentSuccess(orderId, orderData) {
+        function showWaitingForDelivery(orderId, orderData) {
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="status-container">
@@ -2350,7 +2416,7 @@
                     </div>
                     
                     <div class="status-content">
-                        <div class="status-icon">🎉</div>
+                        <div class="status-icon">📦</div>
                         
                         <div class="status-info">
                             <div class="info-item">
@@ -2371,15 +2437,16 @@
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Status:</span>
-                                <span class="info-value" style="color: var(--neon-green);">Pembayaran Dikonfirmasi</span>
+                                <span class="info-value" style="color: var(--neon-orange);">Menunggu Pengiriman</span>
                             </div>
                         </div>
 
-                        <div style="background: rgba(0, 255, 0, 0.1); border: 1px solid var(--neon-green); border-radius: 12px; padding: 20px; margin: 20px 0;">
-                            <h3 style="color: var(--neon-green); margin-bottom: 10px;">Pembayaran Dikonfirmasi!</h3>
-                            <p style="color: var(--neon-green); font-size: 14px;">
-                                ✅ Pembayaran Anda telah berhasil dikonfirmasi oleh admin!<br>
-                                🎁 Sekarang menunggu produk dikirim oleh admin...
+                        <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid var(--neon-orange); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                            <h3 style="color: var(--neon-orange); margin-bottom: 10px;">Status: Menunggu Pengiriman</h3>
+                            <p style="color: var(--neon-orange); font-size: 14px;">
+                                ✅ Pembayaran Anda telah berhasil dikonfirmasi!<br>
+                                ⏳ Admin sedang mempersiapkan produk Anda...<br>
+                                📦 Produk akan dikirim ke WhatsApp: <strong>${orderData.whatsapp}</strong>
                             </p>
                         </div>
                         
@@ -2390,7 +2457,7 @@
 
                         <div class="actions">
                             <button class="btn btn-primary" onclick="window.open('https://wa.me/628972237116', '_blank')">
-                                Hubungi Admin
+                                Tanya Admin
                             </button>
                             <button class="btn btn-secondary" onclick="loadPage('produk')">
                                 Beli Lagi
@@ -2409,7 +2476,7 @@
             content.innerHTML = `
                 <div class="status-container">
                     <div class="status-header status-success">
-                        <h1>🎁 PRODUK SUDAH DIKASIH</h1>
+                        <h1>🎁 PRODUK SUDAH DIKIRIM</h1>
                         <p>Produk telah dikirim oleh admin!</p>
                     </div>
                     
@@ -2435,7 +2502,21 @@
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Status:</span>
-                                <span class="info-value" style="color: var(--neon-cyan);">Produk Sudah Dikasih</span>
+                                <span class="info-value" style="color: var(--neon-cyan);">Produk Sudah Dikirim</span>
+                            </div>
+                        </div>
+
+                        <div class="delivery-section">
+                            <h3 class="delivery-title">📦 DETAIL PRODUK YANG DIKIRIM</h3>
+                            <p style="text-align: center; margin-bottom: 15px; color: var(--text-color);">
+                                Berikut adalah detail produk yang telah dikirim ke WhatsApp Anda:
+                            </p>
+                            
+                            <div class="delivery-content">
+                                <div class="delivery-details">${orderData.deliveryDetails || 'Detail produk akan dikirim via WhatsApp'}</div>
+                                <button class="copy-btn">
+                                    <i class="fas fa-copy"></i> Salin Detail Produk
+                                </button>
                             </div>
                         </div>
 
@@ -2443,15 +2524,9 @@
                             <h3 style="color: var(--neon-cyan); margin-bottom: 10px;">🎉 Produk Sudah Dikirim!</h3>
                             <p style="color: var(--neon-cyan); font-size: 14px;">
                                 ✅ Pembayaran: Dikonfirmasi<br>
-                                ✅ Produk: Sudah Dikasih ke WhatsApp Anda<br>
+                                ✅ Produk: Sudah Dikirim ke WhatsApp Anda<br>
                                 📦 Detail produk telah dikirim via WhatsApp
                             </p>
-                            ${orderData.deliveryDetails ? `
-                            <div style="margin-top: 15px; padding: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
-                                <strong>Detail Produk:</strong><br>
-                                ${orderData.deliveryDetails}
-                            </div>
-                            ` : ''}
                         </div>
 
                         <div class="actions">
@@ -2467,37 +2542,112 @@
             `;
         }
 
-        function showOrderCancelled(orderId) {
-            const content = document.getElementById('content');
-            content.innerHTML = `
-                <div class="status-container">
-                    <div class="status-header status-cancelled">
-                        <h1>❌ PESANAN DIBATALKAN</h1>
-                        <p>Pembayaran telah dibatalkan</p>
-                    </div>
-                    
-                    <div class="status-content">
-                        <div class="status-icon">🚫</div>
-                        
-                        <div class="status-info">
-                            <div class="info-item">
-                                <span class="info-label">Order ID:</span>
-                                <span class="info-value">${orderId}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Status:</span>
-                                <span class="info-value" style="color: var(--neon-red);">Dibatalkan</span>
-                            </div>
-                        </div>
+// ===== SISTEM STATUS CANCEL DI CUSTOMER SIDE =====
 
-                        <div class="actions">
-                            <button class="btn btn-primary" onclick="loadPage('produk')">
-                                Kembali ke Produk
-                            </button>
-                        </div>
+function showOrderCancelledStatus(orderId, orderData) {
+    const content = document.getElementById('content');
+    const cancelReason = orderData.cancelReason || 'Tidak ada alasan yang diberikan';
+    
+    content.innerHTML = `
+        <div class="status-container">
+            <div class="status-header status-cancelled">
+                <h1>❌ PESANAN DIBATALKAN</h1>
+                <p>Pesanan Anda telah dibatalkan oleh admin</p>
+            </div>
+            
+            <div class="status-content">
+                <div class="status-icon">🚫</div>
+                
+                <div class="status-info">
+                    <div class="info-item">
+                        <span class="info-label">Order ID:</span>
+                        <span class="info-value">${orderId}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Produk:</span>
+                        <span class="info-value">${orderData.product}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Durasi:</span>
+                        <span class="info-value">${orderData.duration}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total:</span>
+                        <span class="info-value" style="color: var(--neon-red);">${orderData.price}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value" style="color: var(--neon-red);">Dibatalkan oleh Admin</span>
                     </div>
                 </div>
-            `;
+
+                <div style="background: rgba(255, 68, 68, 0.1); border: 1px solid var(--neon-red); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h3 style="color: var(--neon-red); margin-bottom: 10px;">Alasan Pembatalan:</h3>
+                    <p style="color: var(--neon-red); font-size: 14px; line-height: 1.4;">
+                        ${cancelReason}
+                    </p>
+                </div>
+
+                <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid var(--neon-orange); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h3 style="color: var(--neon-orange); margin-bottom: 10px;">Informasi Penting:</h3>
+                    <p style="color: var(--neon-orange); font-size: 14px;">
+                        • Jika Anda sudah melakukan pembayaran, dana akan dikembalikan<br>
+                        • Untuk pertanyaan lebih lanjut, hubungi customer service<br>
+                        • Anda dapat membuat pesanan baru kapan saja
+                    </p>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="window.open('https://wa.me/628972237116', '_blank')">
+                        Tanya Customer Service
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadPage('produk')">
+                        Buat Pesanan Baru
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Update fungsi checkOrderStatus untuk handle cancelled status
+function checkOrderStatus(orderId) {
+    // PERBAIKAN: Cek dari kedua sumber (pendingOrders dan completedOrders)
+    const pendingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '{}');
+    const completedOrders = JSON.parse(localStorage.getItem('completedOrders') || '{}');
+    
+    // Cek di completedOrders terlebih dahulu
+    let order = completedOrders[orderId];
+    
+    // Jika tidak ada di completedOrders, cek di pendingOrders
+    if (!order) {
+        order = pendingOrders[orderId];
+    }
+    
+    if (order) {
+        if (order.status === 'completed') {
+            // Pembayaran sudah dikonfirmasi admin, tapi belum dikirim
+            clearInterval(orderCheckInterval);
+            showWaitingForDelivery(orderId, order);
+        } else if (order.status === 'delivered') {
+            // Produk sudah dikasih admin
+            clearInterval(orderCheckInterval);
+            showProductDelivered(orderId, order);
+        } else if (order.status === 'cancelled') {
+            // Pesanan dibatalkan admin
+            clearInterval(orderCheckInterval);
+            showOrderCancelledStatus(orderId, order);
+        }
+    }
+}
+        // Fungsi untuk copy text ke clipboard
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
         }
 
         // Load saved theme
