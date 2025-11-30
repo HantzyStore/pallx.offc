@@ -1439,7 +1439,7 @@
                     "Scan QR code yang ditampilkan",
                     "Konfirmasi pembayaran"
                 ],
-                qrCode: "https://files.catbox.moe/r1wn0o.jpg"
+                qrCode: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://pallxx-offc.vercel.app"
             },
             dana: {
                 name: "DANA",
@@ -2402,6 +2402,10 @@
                     // Produk sudah dikasih admin
                     clearInterval(orderCheckInterval);
                     showProductDelivered(orderId, order);
+                } else if (order.status === 'cancelled') {
+                    // Pesanan dibatalkan admin
+                    clearInterval(orderCheckInterval);
+                    showOrderCancelledStatus(orderId, order);
                 }
             }
         }
@@ -2513,7 +2517,7 @@
                             </p>
                             
                             <div class="delivery-content">
-                                <div class="delivery-details">${orderData.deliveryDetails || 'Detail produk akan dikirim via WhatsApp'}</div>
+                                <div class="delivery-details">${orderData.deliveryDetails || 'Produk Sudah Di Kirim Via Whatspp'}</div>
                                 <button class="copy-btn">
                                     <i class="fas fa-copy"></i> Salin Detail Produk
                                 </button>
@@ -2542,104 +2546,123 @@
             `;
         }
 
-// ===== SISTEM STATUS CANCEL DI CUSTOMER SIDE =====
+        // ===== SISTEM STATUS CANCEL DI CUSTOMER SIDE =====
 
-function showOrderCancelledStatus(orderId, orderData) {
-    const content = document.getElementById('content');
-    const cancelReason = orderData.cancelReason || 'Tidak ada alasan yang diberikan';
-    
-    content.innerHTML = `
-        <div class="status-container">
-            <div class="status-header status-cancelled">
-                <h1>❌ PESANAN DIBATALKAN</h1>
-                <p>Pesanan Anda telah dibatalkan oleh admin</p>
-            </div>
+        function showOrderCancelledStatus(orderId, orderData) {
+            const content = document.getElementById('content');
+            const cancelReason = orderData.cancelReason || 'Tidak ada alasan yang diberikan';
             
-            <div class="status-content">
-                <div class="status-icon">🚫</div>
-                
-                <div class="status-info">
-                    <div class="info-item">
-                        <span class="info-label">Order ID:</span>
-                        <span class="info-value">${orderId}</span>
+            content.innerHTML = `
+                <div class="status-container">
+                    <div class="status-header status-cancelled">
+                        <h1>❌ PESANAN DIBATALKAN</h1>
+                        <p>Pesanan Anda telah dibatalkan oleh admin</p>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Produk:</span>
-                        <span class="info-value">${orderData.product}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Durasi:</span>
-                        <span class="info-value">${orderData.duration}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Total:</span>
-                        <span class="info-value" style="color: var(--neon-red);">${orderData.price}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Status:</span>
-                        <span class="info-value" style="color: var(--neon-red);">Dibatalkan oleh Admin</span>
+                    
+                    <div class="status-content">
+                        <div class="status-icon">🚫</div>
+                        
+                        <div class="status-info">
+                            <div class="info-item">
+                                <span class="info-label">Order ID:</span>
+                                <span class="info-value">${orderId}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Produk:</span>
+                                <span class="info-value">${orderData.product}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Durasi:</span>
+                                <span class="info-value">${orderData.duration}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Total:</span>
+                                <span class="info-value" style="color: var(--neon-red);">${orderData.price}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status:</span>
+                                <span class="info-value" style="color: var(--neon-red);">Dibatalkan oleh Admin</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255, 68, 68, 0.1); border: 1px solid var(--neon-red); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                            <h3 style="color: var(--neon-red); margin-bottom: 10px;">Alasan Pembatalan:</h3>
+                            <p style="color: var(--neon-red); font-size: 14px; line-height: 1.4;">
+                                Tidak Ada Pembayaran Tersebut!!!
+                            </p>
+                        </div>
+
+                        <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid var(--neon-orange); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                            <h3 style="color: var(--neon-orange); margin-bottom: 10px;">Informasi Penting:</h3>
+                            <p style="color: var(--neon-orange); font-size: 14px;">
+                                • Jika Anda sudah melakukan pembayaran, dana akan dikembalikan<br>
+                                • Untuk pertanyaan lebih lanjut, hubungi customer service<br>
+                                • Anda dapat membuat pesanan baru kapan saja
+                            </p>
+                        </div>
+
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="window.open('https://wa.me/628972237116', '_blank')">
+                                Tanya Customer Service
+                            </button>
+                            <button class="btn btn-secondary" onclick="loadPage('produk')">
+                                Buat Pesanan Baru
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <div style="background: rgba(255, 68, 68, 0.1); border: 1px solid var(--neon-red); border-radius: 12px; padding: 20px; margin: 20px 0;">
-                    <h3 style="color: var(--neon-red); margin-bottom: 10px;">Alasan Pembatalan:</h3>
-                    <p style="color: var(--neon-red); font-size: 14px; line-height: 1.4;">
-                        ${cancelReason}
-                    </p>
-                </div>
-
-                <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid var(--neon-orange); border-radius: 12px; padding: 20px; margin: 20px 0;">
-                    <h3 style="color: var(--neon-orange); margin-bottom: 10px;">Informasi Penting:</h3>
-                    <p style="color: var(--neon-orange); font-size: 14px;">
-                        • Jika Anda sudah melakukan pembayaran, dana akan dikembalikan<br>
-                        • Untuk pertanyaan lebih lanjut, hubungi customer service<br>
-                        • Anda dapat membuat pesanan baru kapan saja
-                    </p>
-                </div>
-
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="window.open('https://wa.me/628972237116', '_blank')">
-                        Tanya Customer Service
-                    </button>
-                    <button class="btn btn-secondary" onclick="loadPage('produk')">
-                        Buat Pesanan Baru
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// Update fungsi checkOrderStatus untuk handle cancelled status
-function checkOrderStatus(orderId) {
-    // PERBAIKAN: Cek dari kedua sumber (pendingOrders dan completedOrders)
-    const pendingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '{}');
-    const completedOrders = JSON.parse(localStorage.getItem('completedOrders') || '{}');
-    
-    // Cek di completedOrders terlebih dahulu
-    let order = completedOrders[orderId];
-    
-    // Jika tidak ada di completedOrders, cek di pendingOrders
-    if (!order) {
-        order = pendingOrders[orderId];
-    }
-    
-    if (order) {
-        if (order.status === 'completed') {
-            // Pembayaran sudah dikonfirmasi admin, tapi belum dikirim
-            clearInterval(orderCheckInterval);
-            showWaitingForDelivery(orderId, order);
-        } else if (order.status === 'delivered') {
-            // Produk sudah dikasih admin
-            clearInterval(orderCheckInterval);
-            showProductDelivered(orderId, order);
-        } else if (order.status === 'cancelled') {
-            // Pesanan dibatalkan admin
-            clearInterval(orderCheckInterval);
-            showOrderCancelledStatus(orderId, order);
+            `;
         }
-    }
-}
+
+        function showOrderCancelled(orderId) {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="status-container">
+                    <div class="status-header status-cancelled">
+                        <h1>❌ PEMBAYARAN DIBATALKAN</h1>
+                        <p>Anda telah membatalkan pembayaran</p>
+                    </div>
+                    
+                    <div class="status-content">
+                        <div class="status-icon">🚫</div>
+                        
+                        <div class="status-info">
+                            <div class="info-item">
+                                <span class="info-label">Order ID:</span>
+                                <span class="info-value">${orderId}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status:</span>
+                                <span class="info-value" style="color: var(--neon-red);">Dibatalkan oleh Customer</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255, 68, 68, 0.1); border: 1px solid var(--neon-red); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                            <h3 style="color: var(--neon-red); margin-bottom: 10px;">Pembayaran Dibatalkan</h3>
+                            <p style="color: var(--neon-red); font-size: 14px;">
+                                Anda telah membatalkan proses pembayaran. Jika ini adalah kesalahan, 
+                                Anda dapat membuat pesanan baru kapan saja.
+                            </p>
+                        </div>
+
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="loadPage('produk')">
+                                Buat Pesanan Baru
+                            </button>
+                            <button class="btn btn-secondary" onclick="loadPage('beranda')">
+                                Kembali ke Beranda
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkOrderStatusManually(orderId) {
+            alert('Memeriksa status pesanan...');
+            checkOrderStatus(orderId);
+        }
+
         // Fungsi untuk copy text ke clipboard
         function copyToClipboard(text) {
             const textarea = document.createElement('textarea');
